@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TechGadżety — Elektronika i gadżety</title>
+  <style>
+    body{margin:0;font-family:Arial,system-ui;background:#0b0f17;color:#e7eefc}
+    header{padding:22px 18px;border-bottom:1px solid #23304a;position:sticky;top:0;background:#0b0f17}
+    .wrap{max-width:980px;margin:0 auto;padding:0 18px}
+    h1{margin:10px 0 6px;font-size:30px}
+    p{color:#a8b4cf;line-height:1.45}
+    .grid{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0 28px}
+    .card{border:1px solid #23304a;border-radius:14px;padding:14px;background:#0f1624}
+    .price{font-weight:800}
+    .btn{display:inline-block;padding:12px 16px;border-radius:999px;background:#6ee7ff;color:#05101a;
+         text-decoration:none;font-weight:900;margin-right:10px}
+    .btn2{display:inline-block;padding:12px 16px;border-radius:999px;border:1px solid #23304a;color:#e7eefc;
+         text-decoration:none;font-weight:700}
+    footer{padding:26px 0 40px;border-top:1px solid #23304a;color:#a8b4cf}
+    @media(min-width:780px){.grid{grid-template-columns:repeat(3,1fr)}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <strong>TechGadżety</strong>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Elektronika i gadżety</h1>
+    <p>Wersja startowa sklepu (działa na GitHub Pages). Na tym etapie zamówienia przyjmujesz przez e-mail, a potem łatwo rozbudujemy o płatności i dropshipping.</p>
+
+    <a class="btn" href="mailto:sklep@twojadomena.pl?subject=Zam%C3%B3wienie%20%E2%80%94%20TechGad%C5%BCety">Zamów przez e-mail</a>
+    <a class="btn2" href="#produkty">Zobacz produkty</a>
+
+    <h2 id="produkty" style="margin-top:26px">Produkty (przykładowe)</h2>
+    <div class="grid">
+      <div class="card">
+        <div><strong>Ładowarka GaN USB-C 65W</strong></div>
+        <p>PD/PPS • 2x USB-C + USB-A</p>
+        <div class="price">129,99 zł</div>
+      </div>
+      <div class="card">
+        <div><strong>Hub USB-C 8w1</strong></div>
+        <p>HDMI 4K • USB • SD • PD</p>
+        <div class="price">139,00 zł</div>
+      </div>
+      <div class="card">
+        <div><strong>Uchwyt MagSafe do auta</strong></div>
+        <p>Stabilny montaż • wygodna nawigacja</p>
+        <div class="price">109,00 zł</div>
+      </div>
+      <div class="card">
+        <div><strong>Słuchawki TWS z ANC</strong></div>
+        <p>Tryb transparentny • etui USB-C</p>
+        <div class="price">199,99 zł</div>
+      </div>
+      <div class="card">
+        <div><strong>Taśma LED Smart 5m</strong></div>
+        <p>Wi-Fi • aplikacja • sceny</p>
+        <div class="price">89,99 zł</div>
+      </div>
+      <div class="card">
+        <div><strong>Lampka biurkowa LED</strong></div>
+        <p>Ściemniacz • USB • regulacja barwy</p>
+        <div class="price">79,99 zł</div>
+      </div>
+    </div>
+
+    <footer>
+      <div>Kontakt: sklep@twojadomena.pl • +48 000 000 000</div>
+      <div style="margin-top:8px">© TechGadżety</div>
+    </footer>
+  </main>
+</body>
+</html>
