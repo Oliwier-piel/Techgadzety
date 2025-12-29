@@ -1,78 +1,204 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TechGadżety — Elektronika i gadżety</title>
-  <style>
-    body{margin:0;font-family:Arial,system-ui;background:#0b0f17;color:#e7eefc}
-    header{padding:22px 18px;border-bottom:1px solid #23304a;position:sticky;top:0;background:#0b0f17}
-    .wrap{max-width:980px;margin:0 auto;padding:0 18px}
-    h1{margin:10px 0 6px;font-size:30px}
-    p{color:#a8b4cf;line-height:1.45}
-    .grid{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0 28px}
-    .card{border:1px solid #23304a;border-radius:14px;padding:14px;background:#0f1624}
-    .price{font-weight:800}
-    .btn{display:inline-block;padding:12px 16px;border-radius:999px;background:#6ee7ff;color:#05101a;
-         text-decoration:none;font-weight:900;margin-right:10px}
-    .btn2{display:inline-block;padding:12px 16px;border-radius:999px;border:1px solid #23304a;color:#e7eefc;
-         text-decoration:none;font-weight:700}
-    footer{padding:26px 0 40px;border-top:1px solid #23304a;color:#a8b4cf}
-    @media(min-width:780px){.grid{grid-template-columns:repeat(3,1fr)}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TechGadżety — Sklep</title>
+<style>
+  body{margin:0;font-family:Arial,system-ui;background:#0b0f17;color:#e7eefc}
+  header{position:sticky;top:0;background:#0b0f17;border-bottom:1px solid #23304a;z-index:10}
+  .wrap{max-width:1100px;margin:0 auto;padding:16px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  .brand{font-weight:900}
+  .btn{border:1px solid #23304a;background:#0f1624;color:#e7eefc;padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:800;cursor:pointer}
+  .btn.primary{background:#6ee7ff;color:#05101a;border:none}
+  .pill{display:inline-block;background:#6ee7ff;color:#05101a;border-radius:999px;padding:2px 8px;font-weight:900;margin-left:8px}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+  input,select{border:1px solid #23304a;background:#0f1624;color:#e7eefc;padding:10px 12px;border-radius:999px}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px}
+  .card{border:1px solid #23304a;background:#0f1624;border-radius:16px;overflow:hidden}
+  .card .body{padding:14px}
+  .tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#a78bfa;color:#05101a;font-weight:900;font-size:12px;margin-right:6px}
+  .tag2{background:#34d399}
+  .price{font-weight:1000;font-size:18px}
+  .muted{color:#a8b4cf}
+  .drawer{position:fixed;inset:0;display:none;justify-content:flex-end;z-index:50}
+  .drawer.open{display:flex}
+  .back{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+  .panel{position:relative;width:min(420px,100%);height:100%;background:#0c1320;border-left:1px solid #23304a;padding:14px;display:flex;flex-direction:column}
+  .cart{overflow:auto;display:flex;flex-direction:column;gap:10px;margin-top:10px}
+  .item{border:1px solid #23304a;border-radius:14px;padding:10px;background:#0f1624}
+  .qty button{margin:0 6px}
+  @media(min-width:860px){.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <strong>TechGadżety</strong>
+<header>
+  <div class="wrap row">
+    <div class="brand">TechGadżety</div>
+    <div class="row">
+      <a class="btn" href="./">Strona główna</a>
+      <button class="btn" id="cartBtn">Koszyk <span class="pill" id="count">0</span></button>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main class="wrap">
-    <h1>Elektronika i gadżety</h1>
-    <p>Wersja startowa sklepu (działa na GitHub Pages). Na tym etapie zamówienia przyjmujesz przez e-mail, a potem łatwo rozbudujemy o płatności i dropshipping.</p>
+<main class="wrap">
+  <h1>Sklep — Elektronika i gadżety</h1>
+  <p class="muted">Wersja startowa: koszyk + zamówienie na e-mail. Za chwilę dodamy płatności i dropshipping.</p>
 
-    <a class="btn" href="mailto:sklep@twojadomena.pl?subject=Zam%C3%B3wienie%20%E2%80%94%20TechGad%C5%BCety">Zamów przez e-mail</a>
-    <a class="btn2" href="#produkty">Zobacz produkty</a>
+  <div class="filters">
+    <input id="q" placeholder="Szukaj (np. hub, ładowarka)..." />
+    <select id="cat">
+      <option value="all">Wszystkie</option>
+      <option>Ładowanie</option>
+      <option>Audio</option>
+      <option>Smart Home</option>
+      <option>Auto</option>
+      <option>Biuro</option>
+    </select>
+    <input id="mail" placeholder="E-mail do zamówień (np. sklep@...)" style="min-width:260px" />
+    <button class="btn primary" id="save">Zapisz e-mail</button>
+  </div>
 
-    <h2 id="produkty" style="margin-top:26px">Produkty (przykładowe)</h2>
-    <div class="grid">
-      <div class="card">
-        <div><strong>Ładowarka GaN USB-C 65W</strong></div>
-        <p>PD/PPS • 2x USB-C + USB-A</p>
-        <div class="price">129,99 zł</div>
-      </div>
-      <div class="card">
-        <div><strong>Hub USB-C 8w1</strong></div>
-        <p>HDMI 4K • USB • SD • PD</p>
-        <div class="price">139,00 zł</div>
-      </div>
-      <div class="card">
-        <div><strong>Uchwyt MagSafe do auta</strong></div>
-        <p>Stabilny montaż • wygodna nawigacja</p>
-        <div class="price">109,00 zł</div>
-      </div>
-      <div class="card">
-        <div><strong>Słuchawki TWS z ANC</strong></div>
-        <p>Tryb transparentny • etui USB-C</p>
-        <div class="price">199,99 zł</div>
-      </div>
-      <div class="card">
-        <div><strong>Taśma LED Smart 5m</strong></div>
-        <p>Wi-Fi • aplikacja • sceny</p>
-        <div class="price">89,99 zł</div>
-      </div>
-      <div class="card">
-        <div><strong>Lampka biurkowa LED</strong></div>
-        <p>Ściemniacz • USB • regulacja barwy</p>
-        <div class="price">79,99 zł</div>
-      </div>
+  <div id="grid" class="grid"></div>
+</main>
+
+<div class="drawer" id="drawer">
+  <div class="back" id="back"></div>
+  <div class="panel">
+    <div class="row">
+      <strong>Koszyk</strong>
+      <button class="btn" id="close">Zamknij</button>
     </div>
+    <div class="cart" id="cart"></div>
+    <div style="margin-top:auto;border-top:1px solid #23304a;padding-top:12px">
+      <div class="row">
+        <span>Razem:</span>
+        <strong id="total">0,00 zł</strong>
+      </div>
+      <button class="btn primary" id="order">Złóż zamówienie (e-mail)</button>
+      <p class="muted" style="font-size:12px">Kolejny krok: płatności Stripe/PayPal.</p>
+    </div>
+  </div>
+</div>
 
-    <footer>
-      <div>Kontakt: sklep@twojadomena.pl • +48 000 000 000</div>
-      <div style="margin-top:8px">© TechGadżety</div>
-    </footer>
-  </main>
+<script>
+const products = [
+  {id:"gan65", name:"Ładowarka GaN USB-C 65W", cat:"Ładowanie", price:129.99, tag:"Bestseller"},
+  {id:"hub8", name:"Hub USB-C 8w1 (HDMI 4K)", cat:"Biuro", price:139.00, tag:"Nowość"},
+  {id:"twsanc", name:"Słuchawki TWS z ANC", cat:"Audio", price:199.99, tag:"Top"},
+  {id:"led5", name:"Taśma LED Smart 5m (Wi-Fi)", cat:"Smart Home", price:89.99, tag:"Klimat"},
+  {id:"magsafe", name:"Uchwyt MagSafe do auta", cat:"Auto", price:109.00, tag:"Auto"},
+  {id:"lamp", name:"Lampka biurkowa LED", cat:"Biuro", price:79.99, tag:"Biuro"}
+];
+
+const fmt = n => n.toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2});
+const $ = s => document.querySelector(s);
+const grid = $("#grid"), q=$("#q"), cat=$("#cat");
+const drawer=$("#drawer"), cartBtn=$("#cartBtn"), back=$("#back"), close=$("#close");
+const cartEl=$("#cart"), totalEl=$("#total"), countEl=$("#count");
+const mail=$("#mail"), save=$("#save"), order=$("#order");
+
+let cart = JSON.parse(localStorage.getItem("tg_cart")||"{}");
+let orderMail = localStorage.getItem("tg_mail") || "sklep@twojadomena.pl";
+mail.value = orderMail;
+
+function saveState(){
+  localStorage.setItem("tg_cart", JSON.stringify(cart));
+  localStorage.setItem("tg_mail", orderMail);
+  renderBadge();
+}
+function renderBadge(){
+  countEl.textContent = Object.values(cart).reduce((a,b)=>a+b,0);
+}
+function match(p){
+  const qq=(q.value||"").toLowerCase().trim();
+  const cc=cat.value;
+  const okq=!qq || (p.name+" "+p.cat).toLowerCase().includes(qq);
+  const okc=(cc==="all") || p.cat===cc;
+  return okq && okc;
+}
+function render(){
+  grid.innerHTML="";
+  const list = products.filter(match);
+  if(!list.length){
+    grid.innerHTML = '<p class="muted">Brak wyników.</p>'; return;
+  }
+  for(const p of list){
+    const d=document.createElement("div");
+    d.className="card";
+    d.innerHTML = `
+      <div class="body">
+        <div>
+          <span class="tag">${p.tag}</span>
+          <span class="tag tag2">${p.cat}</span>
+        </div>
+        <h3 style="margin:10px 0 8px">${p.name}</h3>
+        <div class="row">
+          <div class="price">${fmt(p.price)} zł</div>
+          <button class="btn primary" data-add="${p.id}">Dodaj</button>
+        </div>
+      </div>`;
+    d.querySelector("[data-add]").onclick=()=>{
+      cart[p.id]=(cart[p.id]||0)+1; saveState();
+    };
+    grid.appendChild(d);
+  }
+}
+function openCart(){ drawer.classList.add("open"); renderCart(); }
+function closeCart(){ drawer.classList.remove("open"); }
+cartBtn.onclick=openCart; back.onclick=closeCart; close.onclick=closeCart;
+
+function renderCart(){
+  cartEl.innerHTML="";
+  const ids=Object.keys(cart);
+  if(!ids.length){ cartEl.innerHTML='<p class="muted">Koszyk pusty.</p>'; totalEl.textContent='0,00 zł'; return; }
+  let total=0;
+  for(const id of ids){
+    const p=products.find(x=>x.id===id); if(!p) continue;
+    const qty=cart[id]; total += p.price*qty;
+    const div=document.createElement("div");
+    div.className="item";
+    div.innerHTML = `
+      <strong>${p.name}</strong>
+      <div class="muted" style="margin-top:6px">
+        ${fmt(p.price)} zł •
+        <span class="qty">
+          <button class="btn" data-m="${id}">−</button>
+          <strong>${qty}</strong>
+          <button class="btn" data-p="${id}">+</button>
+          <button class="btn" data-d="${id}">Usuń</button>
+        </span>
+      </div>`;
+    div.querySelector("[data-m]").onclick=()=>{ cart[id]=Math.max(0,qty-1); if(cart[id]===0) delete cart[id]; saveState(); renderCart(); };
+    div.querySelector("[data-p]").onclick=()=>{ cart[id]=qty+1; saveState(); renderCart(); };
+    div.querySelector("[data-d]").onclick=()=>{ delete cart[id]; saveState(); renderCart(); };
+    cartEl.appendChild(div);
+  }
+  totalEl.textContent = fmt(total) + " zł";
+}
+
+save.onclick=()=>{ orderMail = (mail.value||"").trim() || orderMail; saveState(); alert("Zapisano e-mail: "+orderMail); };
+
+order.onclick=()=>{
+  const ids=Object.keys(cart);
+  if(!ids.length){ alert("Koszyk pusty."); return; }
+  let lines=[], total=0;
+  for(const id of ids){
+    const p=products.find(x=>x.id===id); const qty=cart[id];
+    lines.push(`- ${p.name} x${qty} — ${fmt(p.price*qty)} zł`);
+    total += p.price*qty;
+  }
+  const subject = encodeURIComponent("Zamówienie — TechGadżety");
+  const body = encodeURIComponent(
+`Cześć! Chcę złożyć zamówienie:\n${lines.join("\n")}\n\nRazem: ${fmt(total)} zł\n\nDane do wysyłki:\nImię i nazwisko:\nAdres:\nTelefon:\n\nUwagi:\n`
+  );
+  location.href = `mailto:${encodeURIComponent(orderMail)}?subject=${subject}&body=${body}`;
+};
+
+q.oninput=render; cat.onchange=render;
+renderBadge(); render();
+</script>
 </body>
 </html>
